@@ -1,10 +1,10 @@
 #' summary
 #'
-#' @param object a DAP object
+#' @param object a dap object
 #' @export
-summary.DAP = function(object, ...)
+summary.dap = function(object, ...)
 {
-  stopifnot(class(object) == "DAP")
+  stopifnot(class(object) == "dap")
 
   # Print title
   cat("============== Posterior Inference {DAP} ==============\n")

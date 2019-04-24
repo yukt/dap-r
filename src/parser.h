@@ -20,7 +20,7 @@ class parser {
   vector<vector<double> > pheno_vec;
   
   map<int, string> pheno_map;
-  map<string, int> pheno_index;;
+  map<string, int> pheno_index;
   map<int, string> geno_map;
   map<string, int> geno_rmap;
 

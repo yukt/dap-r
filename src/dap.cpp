@@ -216,16 +216,16 @@ List dap(List arg) {
                                                  Named("member SNP") = wrap(result.member),
                                                  Named("average PIP") = wrap(result.cluster_pip),
                                                  Named("average r2") = wrap(result.cluster_r2));
-  List result_list = List::create(Named("model summary") = model_summary,
-                                  Named("SNP summary") = SNP_summary,
-                                  Named("cluster summary") = cluster_summary,
+  List result_list = List::create(Named("models") = model_summary,
+                                  Named("SNPs") = SNP_summary,
+                                  Named("clusters") = cluster_summary,
                                   Named("N") = wrap(result.N),
                                   Named("size.mean") = wrap(result.model_size_mean),
                                   Named("size.sd") = wrap(result.model_size_sd),
                                   Named("logNC") = wrap(result.LogNC),
                                   Named("log10NC") = wrap(result.Log10NC),
                                   Named("PIP.min") = wrap(result.min_pip));
-  result_list.attr("class") = "DAP";
+  result_list.attr("class") = "dap";
   return result_list;
 }
 
