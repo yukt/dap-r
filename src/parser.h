@@ -41,7 +41,7 @@ class parser {
 
 
 
- private:
+ // private:
   
   void process_line(string line);
   void regress_cov(vector<double> &phenov, vector<vector<double> > &cov, vector<vector<double> > &genov );

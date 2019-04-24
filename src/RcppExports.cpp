@@ -16,9 +16,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_sbams
+List read_sbams(const char* file, bool normalize);
+RcppExport SEXP _dap_read_sbams(SEXP fileSEXP, SEXP normalizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const char* >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< bool >::type normalize(normalizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_sbams(file, normalize));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dap_dap", (DL_FUNC) &_dap_dap, 1},
+    {"_dap_read_sbams", (DL_FUNC) &_dap_read_sbams, 2},
     {NULL, NULL, 0}
 };
 

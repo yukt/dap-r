@@ -8,11 +8,6 @@
 using namespace Rcpp;
 using namespace std;
 
-//' DAP
-//'
-//' @param arg a list
-//' @return Nothing.
-//' @export
 // [[Rcpp::export]]
 List dap(List arg) {
   char grid_file[128];
@@ -69,6 +64,7 @@ List dap(List arg) {
 
   vector< string > mystrings =  arg.attr("names");
 
+  strcpy(out_file, "output.dap");
   for(int i=0; i<arg.size(); i++)
   {
     // required data files and additional info
@@ -87,7 +83,7 @@ List dap(List arg) {
       strcpy(zval_file, arg[i]);
       continue;
     }
-    if(mystrings[i]=="data_ld")
+    if(mystrings[i]=="ld")
     {
       strcpy(ld_file, arg[i]);
       continue;
@@ -98,19 +94,24 @@ List dap(List arg) {
       ld_format = 2;
       continue;
     }
-    if(mystrings[i]=="d_est")
+    if(mystrings[i]=="est")
     {
       strcpy(est_file, arg[i]);
       continue;
     }
-    if(mystrings[i]=="d_n")
+    if(mystrings[i]=="n")
     {
-      sample_size = atoi(arg[i]);
+      sample_size = arg[i];
       continue;
     }
-    if(mystrings[i]=="d_syy")
+    if(mystrings[i]=="syy")
     {
-      syy = atof(arg[i]);
+      syy = arg[i];
+      continue;
+    }
+    if(mystrings[i]=="summary")
+    {
+      extract_ss = 2;
       continue;
     }
 
@@ -148,7 +149,7 @@ List dap(List arg) {
     stop("No suitable input data specified! \n");
   }
 
-  con.set_outfile(out_file, log_file);
+  
   con.set_gene(gene_name);
   con.set_abf_option(abf_option);
   con.set_thread(thread);
@@ -196,19 +197,22 @@ List dap(List arg) {
   }
   if(extract_ss==2){
     con.run_option =3;
+    con.run();
+    List L;
+    return L;
   }
 
+  con.set_outfile(out_file, log_file);
   con.print_dap_config();
   con.run();
+  
 
   result_parser result(out_file);
-  DataFrame model_summary = DataFrame::create( Named("rank") = wrap(result.model_rank),
-                                               Named("size") = wrap(result.model_size),
+  DataFrame model_summary = DataFrame::create(Named("size") = wrap(result.model_size),
                                                Named("posterior") = wrap(result.model_posterior),
                                                Named("score") = wrap(result.model_score),
                                                Named("configure") = wrap(result.model_configure));
-  DataFrame SNP_summary = DataFrame::create( Named("rank") = wrap(result.snp_rank),
-                                             Named("name") = wrap(result.snp_name),
+  DataFrame SNP_summary = DataFrame::create( Named("name") = wrap(result.snp_name),
                                              Named("PIP") = wrap(result.snp_pip),
                                              Named("score") = wrap(result.snp_score),
                                              Named("cluster") = wrap(result.snp_cluster));

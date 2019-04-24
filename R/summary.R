@@ -1,4 +1,4 @@
-#' summary
+#' Summary the dap analysis result
 #'
 #' @param object a dap object
 #' @export

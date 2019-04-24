@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary.dap}
 \alias{summary.dap}
-\title{summary}
+\title{Summary the dap analysis result}
 \usage{
 \method{summary}{dap}(object, ...)
 }
@@ -10,5 +10,5 @@
 \item{object}{a dap object}
 }
 \description{
-summary
+Summary the dap analysis result
 }
